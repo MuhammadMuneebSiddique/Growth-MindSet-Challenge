@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 from io import BytesIO
+import fitz
 
 # Configure the app
 st.set_page_config(page_title="Data Sweeper", layout="wide", initial_sidebar_state="expanded")
@@ -114,7 +115,6 @@ if page == "Text Extractor":
             df = pd.read_excel(text_file)
             extracted_text = df.to_string(index=False)
         elif file_extension == ".pdf":
-            import fitz  # PyMuPDF
             pdf_reader = fitz.open(stream=text_file.read(), filetype="pdf")
             extracted_text = "\n".join([page.get_text("text") for page in pdf_reader])
 
